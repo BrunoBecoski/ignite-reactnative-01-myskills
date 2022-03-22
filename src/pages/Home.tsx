@@ -19,7 +19,7 @@ interface SkillData {
 export function Home() {
   const [newSkill, setNewSkill] = useState('');
   const [mySkills, setMySkills] = useState<SkillData[]>([]);
-  const [gretting, setGretting] = useState('');
+  const [greeting, setGreeting] = useState('');
 
   function handleAddNewSkill() {
     const data = {
@@ -39,34 +39,36 @@ export function Home() {
     const currentHour = new Date().getHours();
 
     if(currentHour < 12) {
-      setGretting('Good morning');
+      setGreeting('Good morning');
     } 
     else if (currentHour >= 12 && currentHour < 18) {
-      setGretting('Good afternoon');
+      setGreeting('Good afternoon');
     } else {
-      setGretting('Good night'); 
+      setGreeting('Good night'); 
     }
 
   }, [])
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
+      <Text style={styles.title} testID="welcome">
         Welcome, Bruno
       </Text>
 
-      <Text style={styles.grettings}> 
-        { gretting }
+      <Text style={styles.greetings}> 
+        { greeting }
       </Text>
 
-      <TextInput 
+      <TextInput
+        testID="input-new"
         style={styles.input}
         placeholder="New skill"
         placeholderTextColor="#555"
         onChangeText={setNewSkill}
       />
 
-      <Button 
+      <Button
+        testID="button-add"
         title="Add"
         onPress={handleAddNewSkill} 
       />
@@ -75,16 +77,21 @@ export function Home() {
         My Skills
       </Text>
 
-      <FlatList
-        data={mySkills}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => (
-          <SkillCard 
-            skill={item.name}
-            onPress={() => handleRemoveSkill(item.id)}
-          />
-        )}
-      /> 
+      {
+        mySkills &&
+        <FlatList
+          testID="flat-list-skills"
+          data={mySkills}
+          keyExtractor={item => item.id}
+          keyboardShouldPersistTaps="never"
+          renderItem={({ item }) => (
+            <SkillCard 
+              skill={item.name}
+              onPress={() => handleRemoveSkill(item.id)}
+            />
+          )}
+        /> 
+      }
 
     </View>
   )
@@ -110,7 +117,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     borderRadius: 7
   },
-  grettings: {
+  greetings: {
     color: '#FFF'
   }
 });
