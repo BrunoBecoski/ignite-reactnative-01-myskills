@@ -3,7 +3,7 @@
 </div>
   
 ## 📖 Sobre
-O **MySkill** aplicativo simples para listar suas habilidades.
+O **MySkills** aplicativo simples para listar suas habilidades.
 
 ## 🚀 Tecnologias
 - [React Native](https://reactnative.dev)
