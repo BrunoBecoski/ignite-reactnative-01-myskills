@@ -82,6 +82,8 @@ project.ext.react = [
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
+
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -169,18 +171,31 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            resValue "string", "CodePushDeploymentKey", '""'
             if (nativeArchitectures) {
                 ndk {
                     abiFilters nativeArchitectures.split(',')
                 }
             }
         }
+
+
+        releaseStaging {
+            resValue "string", "CodePushDeploymentKey", '"nL6NZfchfXg6_OV9p6QGaQoTFY6dbjq2_7W7H"'
+
+            matchingFallbacks = ['release']
+        }
+
+
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
             // signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+       
+       
+            resValue "string", "CodePushDeploymentKey", '"63JGW5r62IY7RTTYzPpR8JbmCdYXVNSTS4v65"'
         }
     }
 
